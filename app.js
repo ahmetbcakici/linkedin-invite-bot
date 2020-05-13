@@ -32,6 +32,8 @@ const linkedin = {
     await linkedin.page.type('#username', E_MAIL, {delay: 50});
     await linkedin.page.type('input[type="password"]', PASS, {delay: 50});
     await linkedin.page.click('button[type="submit"]');
+
+    await linkedin.page.waitFor(1000);
   },
 
   preparingToInvite: async () => {
@@ -47,34 +49,39 @@ const linkedin = {
   },
 
   startToInvite: async () => {
-    await linkedin.page.evaluate(async () => {
-      await new Promise((resolve, reject) => {
-        let totalHeight = 0;
-        const timer = setInterval(() => {
-          document.elementFromPoint(444, 471).click();
-          let attendeeCounter = document.querySelector(
-            '.invitee-picker-selected-members-pane__header > span'
-          ).innerText;
-          attendeeCounter = attendeeCounter.replace(/ .*/, ' ');
-          const inviteConnectionsModal = document.querySelector(
-            '.invitee-picker__results-container'
-          );
-          inviteConnectionsModal.scrollBy(0, 77);
-          totalHeight += 77; // should be variable
+    await linkedin.page.evaluate(
+      async (SCROLL_DISTANCE, SPEED, CONNECTION_LIMIT) => {
+        await new Promise((resolve, reject) => {
+          let totalHeight = 0;
+          const timer = setInterval(() => {
+            document.elementFromPoint(444, 471).click();
+            let attendeeCounter = document.querySelector(
+              '.invitee-picker-selected-members-pane__header > span'
+            ).innerText;
+            attendeeCounter = attendeeCounter.replace(/ .*/, ' ');
+            const inviteConnectionsModal = document.querySelector(
+              '.invitee-picker__results-container'
+            );
+            inviteConnectionsModal.scrollBy(0, SCROLL_DISTANCE);
+            totalHeight += SCROLL_DISTANCE; // should be variable
 
-          if (attendeeCounter >= 25) {
-            clearInterval(timer);
-            resolve();
-          }
+            if (attendeeCounter >= CONNECTION_LIMIT) {
+              clearInterval(timer);
+              resolve();
+            }
 
-          /*if (totalHeight >= scrollHeight) {
+            /*if (totalHeight >= scrollHeight) {
               console.log('if');
               clearInterval(timer);
               resolve();
             } */
-        }, 111);
-      });
-    });
+          }, SPEED);
+        });
+      },
+      SCROLL_DISTANCE,
+      SPEED,
+      CONNECTION_LIMIT
+    );
   },
 };
 

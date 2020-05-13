@@ -8,5 +8,4 @@ const linkedIn = require('./app');
   await linkedIn.preparingToInvite();
 
   await linkedIn.startToInvite();
-
 })();
