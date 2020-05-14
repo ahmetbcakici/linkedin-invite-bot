@@ -22,3 +22,6 @@ npm start # To run project
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Gif belongs to project
+![a](https://user-images.githubusercontent.com/36089310/81878862-dd129300-9591-11ea-895f-b24fa6c7a4fe.gif)
