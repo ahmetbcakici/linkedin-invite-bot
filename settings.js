@@ -4,7 +4,7 @@ module.exports = {
   EVENT_LINK: 'Your event link',
 
   SCROLL_DISTANCE: 70, // recommended
-  SPEED: 1000, // recommended
+  SPEED: 100, // recommended
   CONNECTION_LIMIT: 500, // How many people you want to select?
   /*
     WARNING!
